@@ -78,5 +78,34 @@ public class DogPark {
     }
   }
 
+  public void updateName(String name) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE parks SET name=:name WHERE id=:id";
+      con.createQuery(sql)
+        .addParameter("name", name)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
+
+  public void updateAddress(String address) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE parks SET address=:address WHERE id=:id";
+      con.createQuery(sql)
+        .addParameter("address", address)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
+
+  public void updateNotes(String notes) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE parks SET notes=:notes WHERE id=:id";
+      con.createQuery(sql)
+        .addParameter("notes", notes)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
 
 }

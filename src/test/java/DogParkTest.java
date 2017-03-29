@@ -92,4 +92,27 @@ public class DogParkTest {
     assertEquals(DogPark.find(secondDogPark.getId()), secondDogPark);
   }
 
+  @Test
+  public void updateName_updatesDogPark_true() {
+    DogPark newDogPark = new DogPark("Wallace", "1600 NW 25th Ave", "cool park", 1);
+    newDogPark.save();
+    newDogPark.updateName("Couch");
+    assertEquals("Couch", newDogPark.find(newDogPark.getId()).getName());
+  }
+
+  @Test
+  public void updateAddress_updatesDogPark_true() {
+    DogPark newDogPark = new DogPark("Wallace", "1600 NW 25th Ave", "cool park", 1);
+    newDogPark.save();
+    newDogPark.updateAddress("3417 NE 7th Ave");
+    assertEquals("3417 NE 7th Ave", newDogPark.find(newDogPark.getId()).getAddress());
+  }
+
+  @Test
+  public void updateNotes_updatesDogPark_true() {
+    DogPark newDogPark = new DogPark("Wallace", "1600 NW 25th Ave", "cool park", 1);
+    newDogPark.save();
+    newDogPark.updateNotes("not a cool park");
+    assertEquals("not a cool park", newDogPark.find(newDogPark.getId()).getNotes());
+  }
 }
