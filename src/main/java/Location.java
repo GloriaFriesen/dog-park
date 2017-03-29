@@ -1,9 +1,10 @@
 import org.sql2o.*;
 
 public class Location {
+private String neighborhood;
 
-  public Location() {
-
+  public Location(String neighborhood) {
+    this.neighborhood = neighborhood;
   }
 
 }
