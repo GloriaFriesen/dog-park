@@ -116,4 +116,12 @@ public class DogParkTest {
     assertEquals("not a cool park", newDogPark.find(newDogPark.getId()).getNotes());
   }
 
+  @Test
+  public void delete_deletesDogPark_true() {
+    DogPark myDogPark = new DogPark("Wallace", "1600 NW 25th Ave", "cool park", 1);
+    myDogPark.save();
+    myDogPark.delete();
+    assertEquals(null, DogPark.find(myDogPark.getId()));
+  }
+
 }
