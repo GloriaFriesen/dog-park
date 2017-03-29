@@ -115,4 +115,5 @@ public class DogParkTest {
     newDogPark.updateNotes("not a cool park");
     assertEquals("not a cool park", newDogPark.find(newDogPark.getId()).getNotes());
   }
+
 }

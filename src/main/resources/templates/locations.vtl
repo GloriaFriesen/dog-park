@@ -1,0 +1,5 @@
+<!--locations.vtl-->
+<h1>Here are all locations</h1>
+#foreach ($location in $locations)
+  <a href="/locations/$location.getId()">$location.getNeighborhood</a>
+#end

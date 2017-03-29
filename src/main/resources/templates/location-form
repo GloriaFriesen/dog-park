@@ -1,0 +1,9 @@
+<!--location-form-->
+<h1>New Location</h1>
+<form action="/locations" method="post">
+  <div class="form-group">
+    <label for="neighborhood">Neighborhood</label>
+    <input id="neighborhood" name="neighborhood" type="text" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-success">Add Neighborhood</button>
+</form>
