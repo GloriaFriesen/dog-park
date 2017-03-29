@@ -17,4 +17,10 @@ public class DogParkTest {
     }
   }
 
+  @Test
+  public void DogPark_instantiatesCorrectly_true() {
+    DogPark newDogPark = new DogPark("Wallace", "1600 NW 25th Ave", "cool park", 1);
+    assertEquals(true, newDogPark instanceof DogPark);
+  }
+
 }
