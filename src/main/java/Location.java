@@ -1,5 +1,6 @@
 import org.sql2o.*;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Location {
 private String neighborhood;
@@ -44,16 +45,24 @@ private int id;
     }
   }
 
-
-public static Location find(int id) {
-  try(Connection con = DB.sql2o.open()) {
-    String sql = "SELECT * FROM locations WHERE id = :id";
-    Location location = con.createQuery(sql)
-      .addParameter("id", id)
-      .executeAndFetchFirst(Location.class);
-    return location;
+  public static Location find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM locations WHERE id = :id";
+      Location location = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Location.class);
+      return location;
+    }
   }
-}
+
+  public List<DogPark> getDogParks() {
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM parks WHERE location_id=:id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(DogPark.class);
+    }
+  }
 
 
 }

@@ -13,8 +13,10 @@ public class DogParkTest {
   @After
   public void tearDown() {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "DELETE FROM parks *;";
-      con.createQuery(sql).executeUpdate();
+      String deleteLocationsQuery = "DELETE FROM locations *;";
+      String deleteDogParkQuery = "DELETE FROM parks *";
+      con.createQuery(deleteLocationsQuery).executeUpdate();
+      con.createQuery(deleteDogParkQuery).executeUpdate();
     }
   }
 
@@ -89,4 +91,5 @@ public class DogParkTest {
     secondDogPark.save();
     assertEquals(DogPark.find(secondDogPark.getId()), secondDogPark);
   }
+
 }

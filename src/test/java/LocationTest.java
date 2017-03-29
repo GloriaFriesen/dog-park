@@ -2,6 +2,7 @@ import org.sql2o.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.List;
+import java.util.Arrays;
 
 public class LocationTest {
 
@@ -13,8 +14,10 @@ public class LocationTest {
   @After
   public void tearDown() {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "DELETE FROM locations *;";
-      con.createQuery(sql).executeUpdate();
+      String deleteLocationsQuery = "DELETE FROM locations *;";
+      String deleteDogParkQuery = "DELETE FROM parks *";
+      con.createQuery(deleteLocationsQuery).executeUpdate();
+      con.createQuery(deleteDogParkQuery).executeUpdate();
     }
   }
 
@@ -78,6 +81,16 @@ public class LocationTest {
     assertEquals(Location.find(secondLocation.getId()), secondLocation);
   }
 
-
+  @Test
+  public void getDogParks_retrievesAllDogParksFromDatabase_dogParkList() {
+    Location newLocation = new Location("Pearl");
+    newLocation.save();
+    DogPark firstDogPark = new DogPark("Wallace", "1600 NW 25th Ave", "cool park", newLocation.getId());
+    firstDogPark.save();
+    DogPark secondDogPark = new DogPark("Overlook", "1599 N Fremont St", "best park", newLocation.getId());
+    secondDogPark.save();
+    DogPark[] dogParks = new DogPark[] {firstDogPark, secondDogPark};
+    assertTrue(newLocation.getDogParks().containsAll(Arrays.asList(dogParks)));
+  }
 
 }
