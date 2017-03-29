@@ -23,4 +23,10 @@ public void Location_returnsInstanceOfLocation_true(){
   assertEquals(true, newLocation instanceof Location);
 }
 
+@Test
+public void getNeighborhood_returnsInstanceOfNeighborhood_pearl(){
+  Location newLocation = new Location("Pearl");
+  assertEquals("Pearl", newLocation.getNeighborhood());
+}
+
 }

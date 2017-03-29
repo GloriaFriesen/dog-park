@@ -7,4 +7,8 @@ private String neighborhood;
     this.neighborhood = neighborhood;
   }
 
+  public String getNeighborhood() {
+    return neighborhood;
+  }
+
 }
