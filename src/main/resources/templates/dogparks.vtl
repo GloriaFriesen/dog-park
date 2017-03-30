@@ -1,0 +1,17 @@
+<!--dogparks.vtl-->
+<h2>All the parks</h2>
+
+#foreach($location in $locations)
+  <ul>
+    <li>$location.getNeighborhood()</li>
+  </ul>
+  #foreach($dogpark in $dogparks)
+    #if ($location.getId() == $dogpark.getLocationId())
+      <ul>
+        <li>$dogpark.getName()</li>
+      </ul>
+    #else
+      <p>No parks</p>
+    #end
+  #end
+#end

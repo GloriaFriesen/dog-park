@@ -66,21 +66,29 @@ public class App {
       String name = request.queryParams("name");
       String address = request.queryParams("address");
       String notes = request.queryParams("notes");
-
       DogPark newDogPark = new DogPark(name, address, notes, location.getId());
       newDogPark.save();
-      model.put("dogPark", newDogPark);
+      // model.put("dogPark", newDogPark);
       model.put("location", location);
       model.put("template", "templates/dogpark-success.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/locations/:location_id/dogparks/:dogparks_id", (request, response) -> {
+    get("/locations/:location_id/dogparks/:dogparks_id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-
+      DogPark newDogPark = DogPark.find(Integer.parseInt(request.params(":dogparks_id")));
+      model.put("dogPark", newDogPark);
+      model.put("template", "templates/dogpark.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/dogparks", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("locations", Location.all());
+      model.put("dogparks", DogPark.all());
+      model.put("template", "templates/dogparks.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
   }
 }

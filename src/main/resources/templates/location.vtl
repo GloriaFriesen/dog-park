@@ -3,7 +3,9 @@
 
 <ul>
 #foreach ($dogPark in $dogParks)
-  <li><a href="/locations/$location.getId()/dogparks/$dogPark.getId()">$dogPark.getName()</a></li>
+  #if ($location.getId() == $dogpark.getLocationId())
+    <li><a href="/locations/$location.getId()/dogparks/$dogPark.getId()">$dogPark.getName()</a></li>
+  #end
 #end
 </ul>
 
