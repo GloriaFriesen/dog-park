@@ -3,6 +3,24 @@
 <h2>Address: $dogPark.getAddress()</h2>
 <h2>Notes about the park: $dogPark.getNotes()</h2>
 
+
+<h2>Edit This Dog Park:</h2>
+<form action="/locations/$dogPark.getLocationId()/dogparks/$dogPark.getId()" method="post">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" value="$dogPark.getName()" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input id="address" name="address" type="text" value="$dogPark.getAddress()" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="notes">Notes</label>
+    <input id="notes" name="notes" type="text" value="$dogPark.getNotes()" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-success">Update Dog Park</button>
+</form>
+
 <form action="/locations/$dogPark.getLocationId()/dogparks/$dogPark.getId()/delete" method="post">
   <button type="submit" name="button">Delete Dog Park</button>
 </form>

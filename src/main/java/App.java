@@ -16,20 +16,20 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    //not sure how we want to navigate between homepage and add location
-    //add location
+    //add location form
     get("/locations/new", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("template", "templates/location-form.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //add location
     post("/locations", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Location newLocation = new Location(request.queryParams("neighborhood"));
       newLocation.save();
       model.put("location", newLocation);
-      model.put("template", "templates/location-success.vtl");  //maybe redirect to page with all locations or homepage?
+      model.put("template", "templates/location-success.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -50,7 +50,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    //add dog park
+    //add dog park form
     get("/locations/:location_id/dogparks/new", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Location location = Location.find(Integer.parseInt(request.params(":location_id")));
@@ -59,6 +59,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //add dog park
     post("/dogparks", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Location location = Location.find(Integer.parseInt(request.queryParams("location_id")));
@@ -67,12 +68,12 @@ public class App {
       String notes = request.queryParams("notes");
       DogPark newDogPark = new DogPark(name, address, notes, location.getId());
       newDogPark.save();
-      // model.put("dogPark", newDogPark);
       model.put("location", location);
       model.put("template", "templates/dogpark-success.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //view individual dog park
     get("/locations/:location_id/dogparks/:dogparks_id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       DogPark newDogPark = DogPark.find(Integer.parseInt(request.params(":dogparks_id")));
@@ -81,6 +82,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //view all dog parks
     get("/dogparks", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("locations", Location.all());
@@ -89,6 +91,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //delete dog park
     post("/locations/:location_id/dogparks/:dogparks_id/delete", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       DogPark newDogPark = DogPark.find(Integer.parseInt(request.params(":dogparks_id")));
@@ -100,15 +103,27 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //delete location
     post("/locations/:location_id/delete", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Location location = Location.find(Integer.parseInt(request.params(":location_id")));
       location.delete();
       String url = String.format("/locations");
       response.redirect(url);
-      model.put("template", "templates/locations.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //update dog park
+    post("/locations/:location_id/dogparks/:dogparks_id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      DogPark dogPark = DogPark.find(Integer.parseInt(request.params("dogparks_id")));
+      Location location = Location.find(dogPark.getLocationId());
+      dogPark.updateName(request.queryParams("name"));
+      dogPark.updateAddress(request.queryParams("address"));
+      dogPark.updateNotes(request.queryParams("notes"));
+      String url = String.format("/locations/%d/dogparks/%d", location.getId(), dogPark.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }
