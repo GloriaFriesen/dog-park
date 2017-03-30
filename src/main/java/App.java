@@ -45,7 +45,7 @@ public class App {
     get("/locations/:location_id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Location location = Location.find(Integer.parseInt(request.params(":location_id")));
-      model.put("dogParks", DogPark.all());
+      // model.put("dogParks", DogPark.all());
       model.put("location", location);
       model.put("template", "templates/location.vtl");
       return new ModelAndView(model, layout);
