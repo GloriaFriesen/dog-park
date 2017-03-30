@@ -3,4 +3,8 @@
 <h2>Address: $dogPark.getAddress()</h2>
 <h2>Notes about the park: $dogPark.getNotes()</h2>
 
+<form action="/locations/$dogPark.getLocationId()/dogparks/$dogPark.getId()/delete" method="post">
+  <button type="submit" name="button">Delete Dog Park</button>
+</form>
+
 <!-- dogpark.vtl -->

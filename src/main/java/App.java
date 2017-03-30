@@ -45,7 +45,6 @@ public class App {
     get("/locations/:location_id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Location location = Location.find(Integer.parseInt(request.params(":location_id")));
-      // model.put("dogParks", DogPark.all());
       model.put("location", location);
       model.put("template", "templates/location.vtl");
       return new ModelAndView(model, layout);
@@ -87,6 +86,17 @@ public class App {
       model.put("locations", Location.all());
       model.put("dogparks", DogPark.all());
       model.put("template", "templates/dogparks.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/locations/:location_id/dogparks/:dogparks_id/delete", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      DogPark newDogPark = DogPark.find(Integer.parseInt(request.params(":dogparks_id")));
+      Location location = Location.find(newDogPark.getLocationId());
+      newDogPark.delete();
+      model.put("dogPark", newDogPark);
+      model.put("location", location);
+      model.put("template", "templates/location.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 

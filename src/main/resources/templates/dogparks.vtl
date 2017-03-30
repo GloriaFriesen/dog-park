@@ -3,15 +3,14 @@
 
 #foreach($location in $locations)
   <ul>
-    <li>$location.getNeighborhood()</li>
-  </ul>
-  #foreach($dogpark in $dogparks)
-    #if ($location.getId() == $dogpark.getLocationId())
+    <li><a href="/locations/$location.getId()">$location.getNeighborhood()</a>
       <ul>
-        <li>$dogpark.getName()</li>
+        #foreach($dogpark in $dogparks)
+          #if ($location.getId() == $dogpark.getLocationId())
+            <li><a href="/locations/$location.getId()/dogparks/$dogpark.getId()">$dogpark.getName()</li></a>
+          #end
+        #end
       </ul>
-    #else
-      <p>No parks</p>
-    #end
-  #end
+    </li>
+  </ul>
 #end

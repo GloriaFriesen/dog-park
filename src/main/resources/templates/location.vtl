@@ -1,7 +1,7 @@
 <!--location.vtl-->
 <h2>$location.getNeighborhood()</h2>
 
-#if ($location.getDogParks())
+#if ($location.getDogParks().size() >= 1)
   <ul>
   #foreach ($dogPark in $location.getDogParks())
     <li><a href="/locations/$location.getId()/dogparks/$dogPark.getId()">$dogPark.getName()</a></li>
@@ -11,7 +11,9 @@
   <p>No dog parks</p>
 #end
 
-<a href="/locations/$location.getId()/dogparks/new"><button type="button" name="button" class="btn-success btn">Add Dog Park</button></a>
+<p><a href="/locations/$location.getId()/dogparks/new"><button type="button" name="button" class="btn-success btn">Add Dog Park</button></a></p>
+
+
 
 
 <!--location.vtl-->
