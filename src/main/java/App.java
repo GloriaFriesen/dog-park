@@ -100,5 +100,15 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    post("/locations/:location_id/delete", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Location location = Location.find(Integer.parseInt(request.params(":location_id")));
+      location.delete();
+      String url = String.format("/locations");
+      response.redirect(url);
+      model.put("template", "templates/locations.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
   }
 }
